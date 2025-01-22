@@ -1,0 +1,305 @@
+/*----------Owner bage----------------*/	
+
+		
+		
+		
+.related-pages{
+		    text-align:center;
+			margin-bottom:40px;
+
+	    }
+		
+		
+		
+		
+.related-content{
+		    background-color:#924B12;
+			color: #fff;
+			border: 1px solid #ccc;
+			border-radius:10px;
+			padding: 10px;
+		    text-align:center;
+			font-weight:bold;
+		    display:inline;
+		    margin:50px;
+			text-decoration:none;
+			
+			
+		} 
+		
+		
+.related-content:hover{
+             background-color: #DED0BA; }
+		
+		
+
+
+.Restaurant-info{
+	        background-color:#FFFEFA;
+			padding:10px;
+			display:flex;
+			align-items:center;
+			margin-bottom:40px;
+			margin-left:20px;
+			width:300px;
+			border: 1px solid #ccc;
+			border-radius:10px;
+			
+			
+}
+
+
+
+
+
+
+
+
+#s-logo{
+	        width:60px;
+			height:60px;
+			border-radius:50%;
+			margin-right:15px;
+}
+		
+		
+.Meal-continer{
+		    display:flex;
+			overflow-x:auto;
+			white-space:nowrap;
+			padding:20px ;
+			background-color:#F8F3EA;
+			width:100%;
+			height:500px;
+			text-align:center;
+			margin:40px auto;
+			
+	    }	
+.meal{
+	        flex-shrink:0;
+		    flex:none;
+			width:300px;
+			height:450px;
+			margin:0 30px;
+			background-color:#FFFEFA;
+			border: 1px solid #ccc;
+			border-radius:10px;
+			padding:10px;
+			text-align:center;
+            
+		}
+		
+
+		
+		
+		
+.meal img {
+    width: 50%;
+    height: auto;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+.meal p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+}
+/*----------End Owner bage----------------*/	
+
+
+
+
+
+
+
+
+
+
+
+	
+/*----------Cuisine bage----------------*/	
+#cuisine-form{
+		    max-width:500px;
+		    padding:20px;
+		    background-color:#F8F3EA;
+		    border:1px solid #ccc;
+		    border-radius:10px;
+		    margin:0 auto;
+	     	text-align:center;
+		}
+		
+#cuisine-form label{
+		    display:block;
+		    margin-bottom:5px;
+		
+		}
+		
+#cuisine-form >div{
+		    padding:5px;
+		
+		}		
+		
+		
+#cuisine-form input[type="text"], #cuisine-form input[type="number"] , #cuisine-form  textarea{
+		    width:50%;
+			padding:10px;
+			margin-bottom:10px;
+			border:1px solid #ccc;
+			border-radius:10px;
+		}
+
+
+
+/*----------End Cuisine bage----------------*/
+
+
+
+
+/*----------Make-Delete offers bage----------------*/	
+#subj-add ,#subj-delet{
+            background-color: #990808;
+            color: white;
+            text-align: center;
+            padding: 10px;
+			margin-bottom:30px;
+			border:1px solid #ccc;
+			border-radius:10px;
+        
+		}
+
+
+				
+.make-delete-page{
+	       display: flex;
+            justify-content: space-around;
+            margin: 0;
+            padding: 20px;
+	
+}			
+			
+			
+			
+.container {
+            width: 48%;
+            display: inline-block;
+        }
+		
+		
+
+/*delete*/
+.offer {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            background-color: #F8F3EA;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+        }
+.offer img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            border-radius: 10px; 
+        }
+ .offer input[type="checkbox"] {
+            margin-right: 10px;
+			align-items:center;
+        }
+ .offer label {
+            flex: 1; 
+			
+        }
+ .buttons {
+            display: flex;
+            justify-content: flex-End;
+            margin-top: 20px;
+			
+        }
+ 
+button {
+
+            cursor: pointer;
+			background-color: #924B12; 
+            color: #fff; 
+            padding: 10px; 
+            border-radius: 5px;
+			border: 1px solid #ccc;
+            font-weight: bold; 
+            transition: background-color 0.3s ease;
+		
+        }
+
+
+button:hover {
+           background-color: #DED0BA; }		
+		
+		
+/*Add*/
+form {
+            background-color: #F8F3EA;
+            padding: 20px;
+            border-radius: 15px;
+			border: 1px solid #ccc;
+        }
+		
+		
+.make-offers input[type="text"],
+.make-offers textarea {
+            width: calc(100% - 22px); 
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+		
+.make-offers input[type="submit"]{
+	        display: block;
+    clear: both;
+    margin-top: 10px;
+}
+		
+
+/*----------End Make-Delete offers bage----------------*/	
+	
+	
+
+		
+		
+		
+/*both Cuisine and o Mke-Delete offers*/
+.vertical-line {
+            border-left: 2px solid black;
+            height: auto;
+        }
+.make-offers, .delete-offers {
+            padding: 20px;
+        }
+		
+input[type="submit"] {
+	        cursor: pointer;
+            background-color: #924B12; 
+            color: #fff; 
+            padding: 10px 20px; 
+            border-radius: 5px;
+			border:1px solid #ccc;
+            font-weight: bold; 
+            transition: background-color 0.3s ease;
+			
+            
+        }
+input[type="submit"]:hover {
+            background-color: #DED0BA; 
+        }
+		
+input[type="file"]{
+	        
+	        padding:10px;
+            margin-bottom:10px;
+			}
+			

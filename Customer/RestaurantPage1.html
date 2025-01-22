@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function sortMeals(categoryIndex) {
+        const sortOrder = document.getElementById(`sortOrder${categoryIndex}`).value;
+
+        const mealsContainer = document.querySelector(`.category-container:nth-of-type(${categoryIndex}) .meals-container`);
+        const meals = Array.from(mealsContainer.querySelectorAll(".meal"));
+
+        meals.sort((a, b) => {
+          const nameA = a.querySelector("h3").textContent.toLowerCase();
+          const nameB = b.querySelector("h3").textContent.toLowerCase();
+          const priceA = parseFloat(a.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim().replace("$", ""));
+          const priceB = parseFloat(b.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim().replace("$", ""));
+
+          if (sortOrder === "price-htl") {
+            return priceB - priceA;
+          } else if (sortOrder === "price-lth") {
+            return priceA - priceB;
+          } else if (sortOrder === "name-az") {
+            return nameA.localeCompare(nameB);
+          } else if (sortOrder === "name-za") {
+            return nameB.localeCompare(nameA);
+          }
+        });
+
+        meals.forEach((meal) => {
+          mealsContainer.appendChild(meal);
+        });
+      }
+
+      function incrementQuantity(button) {
+        const input = button.parentNode.querySelector(".quantity-input");
+        input.value = parseInt(input.value) + 1;
+      }
+
+      function decrementQuantity(button) {
+        const input = button.parentNode.querySelector(".quantity-input");
+        if (parseInt(input.value) > 1) {
+          input.value = parseInt(input.value) - 1;
+        }
+      }
+
+      function addToCart(button) {
+        const mealContainer = button.parentNode;
+        const mealName = mealContainer.querySelector("h3").textContent;
+        const mealPrice = parseFloat(mealContainer.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim().replace("$", ""));
+        const quantity = parseInt(mealContainer.querySelector(".quantity-input").value);
+
+        const meal = {
+          name: mealName,
+          price: mealPrice,
+          quantity: quantity,
+        };
+
+        const existingMeal = JSON.parse(localStorage.getItem("cart1")) || [];
+        const index = existingMeal.findIndex((item) => item.name === mealName);
+        var addToCartText = mealContainer.querySelector("#addToCartText");
+
+        if (index === -1) {
+          existingMeal.push(meal);
+        } else {
+          existingMeal[index].quantity += quantity;
+        }
+
+        localStorage.setItem("cart1", JSON.stringify(existingMeal));
+        addToCartText.textContent = "Added to Cart";
+        setTimeout(() => {
+          addToCartText.textContent = "Add to Cart";
+        }, 2000);
+      }
+
+      document.getElementById("go-to-cart").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        window.location.href = "cart1.html";
+      });
+	
+
+
+
+
+
+
+    </script>
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve dark mode state from localStorage and apply it
+  const isDarkModeStored = localStorage.getItem("darkModeEnabled");
+  if (isDarkModeStored === "true") {
+    document.body.classList.add("dark-mode");
+  }
+});
+</script>
+
+	
+    <meta charset="UTF-8" />
+    <title>Restaurant Page 1</title>
+    <link rel="stylesheet" href="../Shared.css" />
+
+
+    <style>
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 20px;
+      }
+
+      .category-container {
+        background-color: #ded0ba;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .category-title {
+        text-align: right;
+        margin: 0;
+      }
+
+      .sort {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+
+      .sort-order {
+        margin-right: 10px;
+      }
+
+      .sort-button {
+        background-color: #924b12;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .search-input {
+        margin-right: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 150px;
+      }
+
+      .meals-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .meal {
+        border: 1px solid #ccc;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        background-color: #fffefa;
+        border-radius: 10px;
+      }
+
+      .meal img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
+      .meal .add-to-cart {
+        background-color: #edc537;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .state p {
+        color: black;
+        text-align: left;
+        padding: 10px;
+      }
+
+      .go-to-cart {
+        display: inline-block;
+        background-color: #924b12;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .go-to-cart:hover {
+        background-color: #ded0ba;
+      }
+     
+	 body.dark-mode .meal h3,
+body.dark-mode .meal p {
+  color: #000000; /* لون النص الأسود */
+}
+
+body.dark-mode .category-title {
+  color: #000000; /* لون النص الأسود */
+}
+
+
+
+    </style>
+	
+	
+  </head>
+
+  <body dir="rtl">
+  
+    <header>
+      <div class="navigation">
+        <img src="../images/logo1.png" alt="Image" class="logo" />
+
+        <nav>
+          <ul>
+             <li><a href="../Owner/Owner.html" accesskey="o">Owner Dashbord</a></li>
+            <li><a href="RestaurantList.html" accesskey="c">Customer Dashbord</a></li>
+			<li><a href="../Home.html" accesskey="h">Home Page</a></li>
+			
+          </ul>
+        </nav>
+      </div>
+
+      <h1>Customer Dashboard</h1>
+    </header>
+
+    <main>
+      <h2>Tasty Tacos Express</h2>
+      <div class="state">
+        <p><a href="../Home.html">Home Page</a> > <a href="RestaurantList.html">Customer Dashboard</a> > Tasty Tacos Express</p>
+      </div>
+
+      <div class="container">
+        <!-- First Category -->
+
+        <div class="category-container">
+          <h3 class="category-title">Tacos</h3>
+          <div class="sort">
+            <select id="sortOrder1">
+              <optgroup label="Sort by Price">
+                <option value="price-htl">Price: High to Low</option>
+                <option value="price-lth">Price: Low to High</option>
+              </optgroup>
+              <optgroup label="Sort by Name">
+                <option value="name-az">Name: A-Z</option>
+                <option value="name-za">Name: Z-A</option>
+              </optgroup>
+            </select>
+            <button onclick="sortMeals(1)" class="sort-button">Sort</button>
+          </div>
+
+          <!-- Meals of the First Category -->
+
+          <div class="meals-container">
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/BeefTaco1.jpg" alt="Meal 1" />
+              <h3>Beef Taco</h3>
+              <p>Price: $10</p>
+              <p>Calories: 500</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/ChickenTaco1.jpg" alt="Meal 2" />
+              <h3>Chicken Taco</h3>
+              <p>Price: $15</p>
+              <p>Calories: 600</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <!--               <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+ -->
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/VeggieTaco1.jpg" alt="Meal 3" />
+              <h3>Veggie Taco</h3>
+              <p>Price: $12</p>
+              <p>Calories: 550</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <!--               <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+ -->
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Category -->
+
+        <div class="category-container">
+          <h3 class="category-title">Burritos</h3>
+          <div class="sort">
+            <div class="sort-container"></div>
+            <div class="sort">
+              <select id="sortOrder2">
+                <optgroup label="Sort by Price">
+                  <option value="price-htl">Price: High to Low</option>
+                  <option value="price-lth">Price: Low to High</option>
+                </optgroup>
+                <optgroup label="Sort by Name">
+                  <option value="name-az">Name: A-Z</option>
+                  <option value="name-za">Name: Z-A</option>
+                </optgroup>
+              </select>
+              <button onclick="sortMeals(2)" class="sort-button">Sort</button>
+
+              <!-- <button onclick="sortMeals(1)" class="sort-button">Sort by Price</button> -->
+            </div>
+          </div>
+
+          <!-- Meals of the Second Category -->
+
+          <div class="meals-container">
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/SteakBurrito1.jpeg" alt="Meal 4" />
+              <h3>Steak Burrito</h3>
+              <p>Price: $20</p>
+              <p>Calories: 700</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <!--               <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+ -->
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/BeanandCheeseBurrito1.png" alt="Meal 5" />
+              <h3>Bean and Cheese Burrito</h3>
+              <p>Price: $18</p>
+              <p>Calories: 650</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <!--               <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+ -->
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/ShrimpBurrito1.png" alt="Meal 6" />
+              <h3>Shrimp Burrito</h3>
+              <p>Price: $22</p>
+              <p>Calories: 750</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Third Category -->
+
+        <div class="category-container">
+          <h3 class="category-title">Quesadillas</h3>
+          <div class="sort">
+            <div class="sort-container"></div>
+
+            <div class="sort">
+              <select id="sortOrder3">
+                <optgroup label="Sort by Price">
+                  <option value="price-htl">Price: High to Low</option>
+                  <option value="price-lth">Price: Low to High</option>
+                </optgroup>
+                <optgroup label="Sort by Name">
+                  <option value="name-az">Name: A-Z</option>
+                  <option value="name-za">Name: Z-A</option>
+                </optgroup>
+              </select>
+              <button onclick="sortMeals(3)" class="sort-button">Sort</button>
+            </div>
+          </div>
+
+          <!-- Meals of the Third Category -->
+
+          <div class="meals-container">
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/CheeseQuesadilla1.png" alt="Meal 7" />
+              <h3>Cheese Quesadilla</h3>
+              <p>Price: $8</p>
+              <p>Calories: 400</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/ChickenQuesadilla1.png" alt="Meal 8" />
+              <h3>Chicken Quesadilla</h3>
+              <p>Price: $12</p>
+              <p>Calories: 550</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+
+            <div class="meal">
+              <input type="checkbox" class="meal-checkbox" />
+              <img src="../images/SpinachandMushroomQuesadilla1.png" alt="Meal 9" />
+              <h3>Spinach and Mushroom Quesadilla</h3>
+              <p>Price: $10</p>
+              <p>Calories: 500</p>
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" style="width: 30px" />
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+              </div>
+              <br />
+              <button onclick="addToCart(this)" class="add-to-cart"><span id="addToCartText">Add to Cart</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="cart1.html" id="go-to-cart" class="go-to-cart">Go to the cart</a>
+    </main>
+    
+    <footer>
+      <div class="social-icons">
+        <img src="../images/facebook.jpg" alt="FaceBoook" />
+        <img src="../images/x.jpg" alt="X" />
+        <img src="../images/instagram.jpg" alt="Insatgram" />
+      </div>
+
+      <p>&copy; Flavor Fleet</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      window.onload = function () {
+        // Function to create HTML for a new offer
+        function createOfferHTML(title, description, image) {
+          var offerHTML = `
+            <div class="offer">
+              <input type="checkbox" id="${title.replace(/\s+/g, "-").toLowerCase()}" />
+              <img src="${image}" alt="${title}" />
+              <label for="${title.replace(/\s+/g, "-").toLowerCase()}">${title}</label>
+            </div>
+          `;
+          return offerHTML;
+        }
+
+        // Handle form submission
+        document.querySelector(".make-offers form").addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          // Get form values
+          var offerTitle = document.getElementById("offer_title").value;
+          var offerDescription = document.getElementById("offer_description").value;
+          var offerImage = document.getElementById("offer_image").value; // For simplicity, just getting the file name
+
+          // Validate form inputs
+		
+		  if (!isNaN(offerTitle.charAt(0))) {
+            alert("Offer title cannot start with a number.");
+            return false ;}
+		  
+          if (!offerTitle ) {
+            alert("Please fill offer title.");
+            return;
+          }
+
+           if ( !offerDescription ) {
+            alert("Please fill offer desciption.");
+            return;
+          }
+		  
+		   if (  !offerImage) {
+            alert("Please fill offer image.");
+            return;
+          }
+		  
+		  
+		  
+          // Create an object for the new offer
+          var newOffer = {
+            title: offerTitle,
+            description: offerDescription,
+            image: offerImage,
+          };
+
+          // Get the existing offers from local storage
+          var existingOffers = localStorage.getItem("offers");
+          var offers = existingOffers ? JSON.parse(existingOffers) : [];
+
+          // Add the new offer to the offers array
+          offers.push(newOffer);
+
+          // Save the updated offers array back to local storage
+          localStorage.setItem("offers", JSON.stringify(offers));
+
+          // Display success alert
+          alert("New offer '" + offerTitle + "' added successfully!");
+
+          // Reset form
+          document.querySelector(".make-offers form").reset();
+
+          // Update the offers list display with the newly added offer
+          var newOfferHTML = createOfferHTML(offerTitle, offerDescription, offerImage);
+          document.querySelector(".offers-list").insertAdjacentHTML("beforeend", newOfferHTML);
+        });
+
+        // Load offers from local storage on page load
+        function loadOffers() {
+          var existingOffers = localStorage.getItem("offers");
+          if (existingOffers) {
+            var offers = JSON.parse(existingOffers);
+            var offersList = document.querySelector(".offers-list");
+
+            offers.forEach(function (offer) {
+              var offerHTML = createOfferHTML(offer.title, offer.description, offer.image);
+              offersList.insertAdjacentHTML("beforeend", offerHTML);
+            });
+          }
+        }
+
+        loadOffers();
+
+        // Handle delete button click
+        document.querySelector(".delete-offers button").addEventListener("click", function () {
+          // Get all checkboxes
+          var checkboxes = document.querySelectorAll(".offers-list input[type='checkbox']");
+          var checkedOffers = [];
+
+          // Iterate over checkboxes to find checked ones
+          checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+              checkedOffers.push(checkbox.id); // Add the ID of the checked offer to the array
+            }
+          });
+
+          // If no offer is selected, show alert
+          if (checkedOffers.length === 0) {
+            alert("Please select at least one offer.");
+            return;
+          }
+
+          // If at least one offer is selected, confirm deletion
+          var confirmDelete = confirm("Are you sure you want to delete the selected offer(s)?");
+
+          if (confirmDelete) {
+            // Remove the selected offers from the DOM
+            checkedOffers.forEach(function (offerId) {
+              var offerElement = document.getElementById(offerId).parentNode;
+              offerElement.parentNode.removeChild(offerElement);
+            });
+
+            // Remove the selected offers from local storage
+            var existingOffers = localStorage.getItem("offers");
+            var offers = existingOffers ? JSON.parse(existingOffers) : [];
+
+            // Filter out the deleted offers
+            offers = offers.filter(function (offer) {
+              return !checkedOffers.includes(offer.title.replace(/\s+/g, "-").toLowerCase());
+            });
+
+            // Update local storage with the filtered offers
+            localStorage.setItem("offers", JSON.stringify(offers));
+
+            // Display success alert
+            alert("Selected offer(s) deleted successfully!");
+          }
+        });
+      };
+	  
+	  document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve dark mode state from localStorage and apply it
+  const isDarkModeStored = localStorage.getItem("darkModeEnabled");
+  if (isDarkModeStored === "true") {
+    document.body.classList.add("dark-mode");
+  }
+});
+    
+    </script>
+
+    <meta charset="UTF-8" />
+    <title>Make Or Delete Offer Page</title>
+    <link rel="stylesheet" href="Design-All-Owner-Pages.css" />
+    <link rel="stylesheet" href="../Shared.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="navigation">
+        <img src="../images/logo1.png" alt="logo" class="logo" />
+
+        <nav>
+          <ul>
+            <li><a href="../Home.html" accesskey="h">Home Page</a></li>
+            <li><a href="../Customer/RestaurantList.html" accesskey="c">Customer Dashbord</a></li>
+            <li><a href="Owner.html" accesskey="o">Owner Dashbord</a></li>
+          </ul>
+        </nav>
+      </div>
+      <h1>Owner Dashbord</h1>
+    </header>
+
+    <main>
+      <h2>Make Or Delete Offer Page</h2>
+      <div class="state">
+        <p><a href="../Home.html">Home Page</a> > <a href="Owner.html">Owner Dashboard</a> > Make Or Delete Offers</p>
+      </div>
+      <section class="make-delete-page">
+        <div class="container make-offers">
+          <h3 id="subj-add">Make a new Offer</h3>
+          <form>
+            <label for="offer_title">Offer Title:</label>
+            <input type="text" id="offer_title"  />
+
+            <label for="offer_description">Offer Description:</label>
+            <textarea id="offer_description" ></textarea>
+
+            <label for="offer_image">Offer Image:</label>
+            <input type="file" id="offer_image" accept="image/*"  />
+
+            <input type="submit" value="Add Offer" />
+          </form>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <div class="container delete-offers">
+          <h3 id="subj-delet">Delete Offers</h3>
+          <!-- Dynamically generate offers -->
+          <div class="offers-list">
+            <!-- <div class="offer">
+              <input type="checkbox" id="offer1" />
+              <img src="../images/Pizza-Offer.jpeg" alt="Offer Image1" />
+              <label for="offer1">Pizza offer</label>
+            </div>
+
+            <div class="offer">
+              <input type="checkbox" id="offer2" />
+              <img src="../images/Nodels-offer.jpeg" alt="Offer Image2" />
+              <label for="offer2">Nodels offer</label>
+            </div>
+
+            <div class="offer">
+              <input type="checkbox" id="offer3" />
+              <img src="../images/Taco-offer.jpeg" alt="Offer Image3" />
+              <label for="offer3">Taco offer</label>
+            </div>
+
+            <div class="offer">
+              -->
+          </div>
+
+          <div class="buttons">
+            <button>Delete</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="social-icons">
+        <img src="../images/facebook.jpg" alt="FaceBoook" />
+        <img src="../images/x.jpg" alt="X" />
+        <img src="../images/instagram.jpg" alt="Insatgram" />
+      </div>
+      <p>&copy; Flavor Fleet</p>
+    </footer>
+  </body>
+</html>
+ 

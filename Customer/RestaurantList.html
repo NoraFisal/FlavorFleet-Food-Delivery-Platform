@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+    
+	
+	window.onload = function () {
+        var today = new Date();
+        var options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+        var formattedDate = today.toLocaleDateString("en-US", options);
+		
+   
+
+    document.getElementById("startOfWeekDate").textContent = formattedDate;
+
+
+
+        var allRestaurants = document.querySelectorAll(".restaurant-item");
+        for (var i = 3; i < allRestaurants.length; i++) {
+          allRestaurants[i].style.display = "none";
+        }
+
+        document.getElementById("moreButton").addEventListener("click", function () {
+          for (var i = 3; i < allRestaurants.length; i++) {
+            allRestaurants[i].style.display = "block";
+          }
+          document.getElementById("moreButton").style.display = "none";
+        });
+      };
+
+      function showRestaurantInfo(element) {
+        var hoverInfo = element.querySelector(".hover-info");
+        hoverInfo.style.display = "block";
+      }
+
+      function hideRestaurantInfo(element) {
+        var hoverInfo = element.querySelector(".hover-info");
+        hoverInfo.style.display = "none";
+      }
+	  
+	  document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve dark mode state from localStorage and apply it
+  const isDarkModeStored = localStorage.getItem("darkModeEnabled");
+  if (isDarkModeStored === "true") {
+    document.body.classList.add("dark-mode");
+  }
+});
+	  
+	  
+    </script>
+    <meta charset="UTF-8" />
+    <title>Restaurants List</title>
+    <link rel="stylesheet" href="../Shared.css" />
+    <style>
+      .restaurant-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 900px;
+        margin: 20px auto;
+      }
+
+      .restaurant-item {
+    position: relative;
+    width: 250px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    
+    border-radius: 15px;
+    transition: background-color 0.3s; /* تحريك التغيير في اللون بسلاسة */
+  }
+
+  /* تغيير لون الخلفية عند تحريك الماوس */
+  .restaurant-item:hover {
+    background-color: #f8f3ea; /* اللون الأبيض */
+  }
+
+  .item-description {
+    display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff; /* الخلفية البيضاء */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* الظل */
+  max-width: 80%;
+  transition: opacity 0.3s, transform 0.3s; /* تحريك التأثير بسلاسة */
+  opacity: 0; /* بداية الشفافية */
+  }
+
+  /* تغيير الشفافية وتحويل الصندوق النصي عند تحريك الماوس */
+  .restaurant-item:hover .item-description {
+    opacity: 1; /* إظهار الصندوق بشفافية كاملة */
+    transform: translate(-50%, -50%) scale(1); /* تكبير الصندوق */
+  }
+
+      .restaurant-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+
+      .restaurant-info {
+        background-color: #f8f3ea;
+        padding: 10px;
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      .restaurant-info h3 {
+        margin: 0;
+      }
+
+      .restaurant-info p {
+        margin: 5px 0;
+      }
+
+      .rating {
+        background-color: #ded0ba;
+        padding: 5px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      .rating {
+        background-color: #ded0ba;
+        padding: 5px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      .rating .star {
+        color: #000; /* Color for filled star */
+      }
+      .header .text-center {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .moreBtn {
+        background-color: #f8f3ea;
+        color: #333;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      .moreBtn:hover {
+        background-color: #ded0ba;
+      }
+      #startOfWeekDate {
+        display: block;
+        text-align: center;
+        /* margin-top: 5px; */
+        margin-bottom: 15px;
+      }
+	  
+	  .dark-mode .restaurant-info p {
+      color:482407#; /* تغيير لون الخط في الرابط داخل عنصر div.state إلى الأبيض في وضع الليل */
+}
+
+.dark-mode .restaurant-info p {
+    color: white; /* تغيير لون الفقرة داخل .restaurant-info إلى الأبيض في وضع الليل */
+}
+
+
+	  
+	  
+    </style>
+  </head>
+  <body dir="rtl">
+    <header>
+      <div class="navigation">
+        <img src="../images/logo1.png" alt="صورة" class="logo" />
+
+        <nav>
+          <ul>
+            <li><a href="../Owner/Owner.html" accesskey="o">Owner Dashbord</a></li>
+            <li><a href="RestaurantList.html" accesskey="c">Customer Dashbord</a></li>
+            <li><a href="../Home.html" accesskey="h">Home Page</a></li>
+          </ul>
+        </nav>
+      </div>
+      <h1>Customer Dashbord</h1>
+      <span class="text-center" id="startOfWeekDate"></span>
+    </header>
+
+    <main>
+      <h2>Restaurants List</h2>
+      <div class="state">
+        <p><a href="../Home.html">Home Page</a> > Customer Dashboard</p>
+      </div>
+
+      <div class="restaurant-list">
+        <div class="restaurant-item" onmouseover="showRestaurantInfo(this)" onmouseout="hideRestaurantInfo(this)">
+          <a href="RestaurantPage1.html">
+            <img src="../images/1.jpg" alt="مطعم 1" class="restaurant-image" />
+          </a>
+          <div class="hover-info" style="display: none">
+            <div class="restaurant-info">
+              <a href="RestaurantPage1.html">
+                <h3>Tasty Tacos Express</h3>
+              </a>
+              <br />
+              <p>Description: Dive into the world of authentic Mexican flavors with our delicious tacos, burritos, and quesadillas.</p>
+              <br />
+              <div class="rating">Rate: 4.5/5</div>
+            </div>
+          </div>
+          <!-- Hover Info -->
+        </div>
+
+        <div class="restaurant-item" onmouseover="showRestaurantInfo(this)" onmouseout="hideRestaurantInfo(this)">
+          <a href="RestaurantPage2.html">
+            <img src="../images/2.jpg" alt="طعم 2" class="restaurant-image" />
+          </a>
+          <div class="hover-info" style="display: none">
+            <div class="restaurant-info">
+              <a href="RestaurantPage2.html">
+                <h3>Pizza Palace</h3>
+              </a>
+              <br />
+              <p>Savor the taste of Italy with our mouthwatering pizzas, available in various toppings and crust options.</p>
+              <br />
+              <div class="rating">Rate: 4.2/5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="restaurant-item" onmouseover="showRestaurantInfo(this)" onmouseout="hideRestaurantInfo(this)">
+          <a href="RestaurantPage3.html">
+            <img src="../images/3.jpg" alt="مطعم 3" class="restaurant-image" />
+          </a>
+          <div class="hover-info" style="display: none">
+            <div class="restaurant-info">
+              <a href="RestaurantPage3.html">
+                <h3>Wok N' Roll Asian Cuisine</h3>
+              </a>
+              <br />
+              <p>Experience the vibrant flavors of Asia with our selection of stir-fried noodles, rice dishes, and dim sum.</p>
+              <br />
+              <div class="rating">Rate: 4.0/5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="restaurant-list">
+        <div class="restaurant-item" onmouseover="showRestaurantInfo(this)" onmouseout="hideRestaurantInfo(this)">
+          <a href="RestaurantPage4.html">
+            <img src="../images/4.jpg" alt="مطعم 4" class="restaurant-image" />
+          </a>
+          <div class="hover-info" style="display: none">
+            <div class="restaurant-info">
+              <a href="RestaurantPage4.html">
+                <h3>BBQ Barn House</h3>
+              </a>
+              <br />
+              <p>Indulge in smoky barbecue goodness with our selection of ribs , pulled Beef, and brisket, slow-cooked to perfection.</p>
+              <br />
+              <div class="rating">Rate: 4.8/5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="restaurant-item" onmouseover="showRestaurantInfo(this)" onmouseout="hideRestaurantInfo(this)">
+          <a href="RestaurantPage5.html">
+            <img src="../images/5.jpg" alt="مطعم 5" class="restaurant-image" />
+          </a>
+          <div class="hover-info" style="display: none">
+            <div class="restaurant-info">
+              <a href="RestaurantPage5.html">
+                <h3>Fresh & Healthy Greens</h3>
+              </a>
+              <br />
+              <p>Embrace a healthier lifestyle with our nutritious salads, wraps, and refreshing smoothies, made from locally-sourced ingredients.</p>
+              <br />
+              <div class="rating">Rate: 4.0/5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="restaurant-item" onmouseover="showRestaurantInfo(this)" onmouseout="hideRestaurantInfo(this)">
+          <a href="RestaurantPage6.html">
+            <img src="../images/6.jpg" alt="مطعم 6" class="restaurant-image" />
+          </a>
+          <div class="hover-info" style="display: none">
+            <div class="restaurant-info">
+              <a href="RestaurantPage6.html">
+                <h3>Burger Bites</h3>
+              </a>
+              <br />
+              <p>Treat yourself to heavenly desserts with our assortment of cheesecakes, cupcakes, and cookies, perfect for satisfying your sweet tooth.</p>
+              <br />
+              <div class="rating">Rate: 3.5/5</div>
+            </div>
+          </div>
+        </div>
+        <button id="moreButton" class="moreBtn">More</button>
+      </div>
+    </main>
+    <footer>
+      <div class="social-icons">
+        <img src="../images/facebook.jpg" alt="FaceBoook" />
+        <img src="../images/x.jpg" alt="X" />
+        <img src="../images/instagram.jpg" alt="Insatgram" />
+      </div>
+      <p>&copy; Flavor Fleet</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      window.onload = function () {
+        try {
+          var savedMeals = localStorage.getItem("restaurantMeals");
+          console.log(savedMeals);
+
+          if (savedMeals) {
+            var meals = JSON.parse(savedMeals);
+
+            if (meals && meals.length > 0) {
+              var mealContainer = document.querySelector(".Meal-continer");
+
+              meals.forEach(function (meal) {
+                var mealDiv = document.createElement("div");
+                mealDiv.classList.add("meal");
+
+                var mealImage = document.createElement("img");
+                mealImage.src = meal.photo;
+                mealImage.alt = meal.name;
+
+                var mealTitle = document.createElement("h3");
+                mealTitle.textContent = meal.name;
+
+                var mealInfo = document.createElement("p");
+                mealInfo.innerHTML = "Price: $" + meal.price + "<br />Calories: " + meal.calories;
+
+                var mealDescription = document.createElement("p");
+                mealDescription.textContent = meal.description;
+
+                mealDiv.appendChild(mealImage);
+                mealDiv.appendChild(mealTitle);
+                mealDiv.appendChild(mealInfo);
+                mealDiv.appendChild(mealDescription);
+
+                mealContainer.appendChild(mealDiv);
+              });
+            } else {
+              var message = document.createElement("p");
+              message.textContent = "No meals to display.";
+              document.body.appendChild(message);
+            }
+          } else {
+            var message = document.createElement("p");
+            message.textContent = "No meals to display.";
+            document.body.appendChild(message);
+          }
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      };
+	  
+	   document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve dark mode state from localStorage and apply it
+  const isDarkModeStored = localStorage.getItem("darkModeEnabled");
+  if (isDarkModeStored === "true") {
+    document.body.classList.add("dark-mode");
+  }
+});
+    </script>
+
+    <meta charset="UTF-8" />
+    <title>Owener dashboard</title>
+    <link rel="stylesheet" href="Design-All-Owner-Pages.css" />
+    <link rel="stylesheet" href="../Shared.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="navigation">
+        <img src="../images/logo1.png" alt="logo" class="logo" />
+
+        <nav>
+          <ul>
+            <li><a href="../Home.html" accesskey="h">Home Page</a></li>
+            <li><a href="../Customer/RestaurantList.html" accesskey="c">Customer Dashbord</a></li>
+            <li><a href="Owner.html" accesskey="o">Owner Dashbord</a></li>
+          </ul>
+        </nav>
+      </div>
+      <h1>Owner Dashbord</h1>
+    </header>
+
+    <main>
+      <h2>All Restaurants Meals</h2>
+      <div class="state">
+        <p><a href="../Home.html">Home Page</a> > Owner Dashboard</p>
+      </div>
+      <div class="related-pages">
+        <a href="Make-or-Delete-offer-page.html" class="related-content">Make or Delete offers page</a>
+        <a href="New-Cuisine-Page.html" class="related-content">New Cuisine page</a>
+      </div>
+
+      <div class="Restaurant-info">
+        <img src="../images/2.jpg" alt="small-logo" id="s-logo" />
+        <p id="Restaurant-name">Pizza Palace</p>
+      </div>
+
+      <div class="Meal-continer">
+        <!-- <div class="meal">
+          <img src="../images/Oliveoilpesto2.png" alt="dish1" />
+          <h3>Olive Oil Pesto</h3>
+          <p>Price:$8 <br />Calories:700</p>
+          <p>fresh basil leaves, Parmesan cheese, pine nuts, garlic, and high-quality extra virgin olive oil.</p>
+        </div>
+
+        <div class="meal">
+          <img src="../images/Beefpepperoni2.png" alt="dish2" />
+          <h3>Beef Pepperoni</h3>
+          <p>Price:$20 <br />Calories:1100</p>
+          <p>tomato sauce, mozzarella cheese, and beef pepperoni slices.</p>
+        </div>
+
+        <div class="meal">
+          <img src="../images/BBQchicken2.png" alt="dish3" />
+          <h3>BBQ Chicken</h3>
+          <p>Price:$10 <br />Calories:800</p>
+          <p>grilled chicken pieces seasoned with barbecue sauce, topped with mozzarella cheese, and barbecue sauce on pizza dough.</p>
+        </div>
+
+        <div class="meal">
+          <img src="../images/Roccapizza2.png" alt="dish4" />
+          <h3>Rocca</h3>
+          <p>Price:$12 <br />Calories:850</p>
+          <p>thin crust, arugula, cherry tomatoes, premium mozzarella.</p>
+        </div>
+
+        <div class="meal">
+          <img src="../images/Pepperonideluxe2.png" alt="dish5" />
+          <h3>Pepperoni Deluxe</h3>
+          <p>Price:$18 <br />Calories:1050</p>
+          <p>classic pepperoni slices,bell peppers, onions, mushrooms, and olives.</p>
+        </div> -->
+      </div>
+    </main>
+
+    <footer>
+      <div class="social-icons">
+        <img src="../images/facebook.jpg" alt="FaceBoook" />
+        <img src="../images/x.jpg" alt="X" />
+        <img src="../images/instagram.jpg" alt="Insatgram" />
+      </div>
+      <p>&copy; Flavor Fleet</p>
+    </footer>
+  </body>
+</html>

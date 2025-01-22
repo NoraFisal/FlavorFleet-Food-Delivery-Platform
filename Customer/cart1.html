@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Customer Dashboard - Cart Page</title>
+    <link rel="stylesheet" href="Shared.css" />
+    <link rel="stylesheet" href="../Shared.css" />
+    <style>
+      table {
+        margin-left: auto;
+        margin-right: auto;
+        transform: scale(1.4);
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 5vh;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      .button-container button {
+        margin: 0 100px;
+        background-color: #924b12;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.8em;
+      }
+
+      #check-out {
+        margin: 0 100px;
+        background-color: #924b12;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 0.8em;
+      }
+
+      #check-out:hover {
+        color: #edc537;
+      }
+
+      .cart-items {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cart-item {
+        background-color: #ded0ba;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 80%;
+        border-radius: 20px;
+      }
+
+      .cart-item img {
+        width: 100px;
+        height: auto;
+        margin-right: 10px;
+      }
+
+      .cart-item-details {
+        display: flex;
+        align-items: center;
+      }
+
+      .cart-item-details h3,
+      .cart-item-details p {
+        margin: 0;
+        font-weight: bold;
+        color: #000;
+        margin-right: 50px;
+      }
+
+      .cart-item-price {
+        text-align: center;
+      }
+
+      .cart-item-controls {
+        display: flex;
+        align-items: center;
+      }
+
+      .cart-item-controls input[type="number"] {
+        width: 50px;
+        margin-right: 10px;
+      }
+
+      .cart-item-controls button {
+        background-color: #edc537;
+        color: #fffefa;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .cart-item-controls button:hover {
+        color: #924b12;
+      }
+
+      .button-container button:hover {
+        color: #edc537;
+        display: inline-block;
+      }
+
+      .quantity-input {
+        width: 50px;
+        margin-right: 5px;
+      }
+
+      .quantity-buttons {
+        display: flex;
+        align-items: center;
+      }
+
+      .quantity-buttons button {
+        background-color: #924b12;
+        color: #924b12;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+
+      .cart-item-controls .update-quantity {
+        background-color: #fffefa;
+        color: #000;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+
+      .quantity-buttons button:hover {
+        background-color: #924b12;
+        color: #fff;
+      }
+
+      .cart-item-controls .update-quantity:last-child {
+        margin-right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <img src="../images/logo1.png" alt="صورة" class="logo" />
+
+        <nav>
+          <ul>
+            <li><a href="../Home.html" accesskey="h">Home Page</a></li>
+            <li><a href="RestaurantList.html" accesskey="c">Customer Dashbord</a></li>
+            <li><a href="../Owner/Owner.html" accesskey="o">Owner Dashbord</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <h1>Customer Dashboard</h1>
+    </header>
+
+    <main>
+      <h2>Cart Page</h2>
+
+      <div class="state">
+        <p><a href="../Home.html">Home Page</a> > <a href="RestaurantList.html">Customer Dashboard</a> > Cart Page</p>
+      </div>
+
+      <br />
+
+      <div class="cart-items"></div>
+      <div class="button-container">
+        <button id="clear-cart">Clear Cart</button>
+        <a href="evaluation1.html" id="check-out">Check Out</a>
+      </div>
+    </main>
+    <footer>
+      <div class="social-icons">
+        <img src="../images/facebook.jpg" alt="FaceBoook" />
+        <img src="../images/x.jpg" alt="X" />
+        <img src="../images/instagram.jpg" alt="Insatgram" />
+      </div>
+      <p>&copy; Flavor Fleet</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function updateQuantity(itemIndex, newQuantity) {
+          const cartItems = JSON.parse(localStorage.getItem("cart1"));
+          cartItems[itemIndex].quantity = newQuantity;
+          localStorage.setItem("cart1", JSON.stringify(cartItems));
+          displayCartItems();
+        }
+
+        function deleteItem(itemIndex) {
+          const cartItems = JSON.parse(localStorage.getItem("cart1"));
+          cartItems.splice(itemIndex, 1);
+          localStorage.setItem("cart1", JSON.stringify(cartItems));
+          displayCartItems();
+        }
+
+        function clearCart() {
+          localStorage.removeItem("cart1");
+          displayCartItems();
+        }
+
+        function displayTotalPrice() {
+          const cartItems = JSON.parse(localStorage.getItem("cart1"));
+          let totalPrice = 0;
+
+          if (cartItems && cartItems.length > 0) {
+            cartItems.forEach((item) => {
+              totalPrice += item.price * item.quantity;
+            });
+          }
+
+          return totalPrice.toFixed(2);
+        }
+
+        function displayCartItems() {
+          const cartItems = JSON.parse(localStorage.getItem("cart1"));
+          const cartContainer = document.querySelector(".cart-items");
+          let totalPrice = 0;
+
+          if (cartItems && cartItems.length > 0) {
+            cartContainer.innerHTML = "";
+            cartItems.forEach((item, index) => {
+              // في هذا المكان يتم إنشاء العنصر img وإضافته إلى العنصر الأب لعرض العناصر في السلة
+const cartItemDiv = document.createElement("div");
+cartItemDiv.classList.add("cart-item");
+cartItemDiv.innerHTML = `
+  <img src="${item.image}" alt="${item.name}"> <!-- هنا يتم عرض الصورة -->
+  <div class="cart-item-details">
+    <h3>${item.name}</h3>
+    <p class="cart-item-price">$${item.price}</p>
+  </div>
+  <div class="cart-item-controls">
+    <button class="update-quantity" data-index="${index}" data-action="increase">+</button>
+    <input type="number" value="${item.quantity}" min="1" disabled>
+    <button class="update-quantity" data-index="${index}" data-action="decrease">-</button>
+    <button class="delete-item" data-index="${index}">Delete</button>
+  </div>
+`;
+cartContainer.appendChild(cartItemDiv);
+
+
+              // Calculate subtotal for each item and add to total price
+              totalPrice += item.price * item.quantity;
+            });
+          } else {
+            cartContainer.innerHTML = "<p>Your cart is empty</p>";
+          }
+
+          // Display total price
+          const totalPriceContainer = document.createElement("div");
+          totalPriceContainer.classList.add("total-price");
+          totalPriceContainer.innerHTML = `<p>Total Price: $${totalPrice.toFixed(2)}</p>`;
+          cartContainer.appendChild(totalPriceContainer);
+        }
+
+        document.querySelector(".cart-items").addEventListener("click", function (event) {
+          const target = event.target;
+          if (target.classList.contains("update-quantity")) {
+            const action = target.dataset.action;
+            const itemIndex = parseInt(target.dataset.index);
+            if (action === "increase") {
+              updateQuantity(itemIndex, getItemQuantity(itemIndex) + 1);
+            } else if (action === "decrease") {
+              const currentQuantity = getItemQuantity(itemIndex);
+              if (currentQuantity > 1) {
+                updateQuantity(itemIndex, currentQuantity - 1);
+              }
+            }
+          } else if (target.classList.contains("delete-item")) {
+            const itemIndex = parseInt(target.dataset.index);
+            deleteItem(itemIndex);
+          }
+        });
+
+        function getItemQuantity(itemIndex) {
+          const cartItems = JSON.parse(localStorage.getItem("cart1"));
+          return cartItems[itemIndex].quantity;
+        }
+
+        document.getElementById("clear-cart").addEventListener("click", function () {
+          if (localStorage.getItem("cart1") === null) {
+            alert("Your cart is already empty");
+          } else {
+            clearCart();
+          }
+        });
+
+        document.getElementById("check-out").addEventListener("click", function () {
+          const totalPrice = displayTotalPrice();
+          alert(`Total Price: $${totalPrice}`);
+        });
+		
+		
+
+        displayCartItems();
+      });
+	  
+	   document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve dark mode state from localStorage and apply it
+  const isDarkModeStored = localStorage.getItem("darkModeEnabled");
+  if (isDarkModeStored === "true") {
+    document.body.classList.add("dark-mode");
+  }
+});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+body,
+html {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.navigation {
+  overflow: hidden;
+}
+
+.logo {
+  float: left;
+  width: 55px;
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.125em;
+}
+
+a:hover {
+  color: #edc537;
+}
+
+nav a:active {
+  background-color: #f8f3ea;
+}
+
+header {
+  background-color: #990808;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+}
+h1 {
+  text-align: center;
+}
+
+h2 {
+  background-color: #edc537;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+.state {
+  color: black;
+  text-align: left;
+  padding: 10px;
+}
+
+footer {
+  background-color: #990808;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  color: white;
+}
+
+.social-icons img {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+  border-radius: 50%;
+}
+
+/* Light mode */
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #230F08;
+  color: #ffffff;
+}
+
+
+/* Dark mode */
+h2.dark-mode {
+  background-color: #CD8417;
+  
+}
+
+.dark-mode nav {
+   color: #1111;
+}
+
+.dark-mode .state p {
+    color: white; /* تغيير لون الخط في الرابط داخل عنصر div.state إلى الأبيض في وضع الليل */
+}
+
+.dark-mode label {
+    color: black;
+}
+
+.dark-mode .Meal-continer{
+ background-color: #230F08;	
+}
+
+
+

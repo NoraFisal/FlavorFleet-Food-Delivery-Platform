@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      window.onload = function () {
+        // Function to validate form inputs
+        function validateForm() {
+          var mealName = document.getElementById("mealName").value;
+          var mealPrice = document.getElementById("mealPrice").value;
+          var mealCalories = document.getElementById("mealCalories").value;
+
+          // Check if any field is empty
+          if (!mealName || !mealPrice || !mealCalories) {
+            alert("Please fill in all fields.");
+            return false;
+          }
+
+          // Check if mealName starts with a number
+          if (!isNaN(mealName.charAt(0))) {
+            alert("Meal name cannot start with a number.");
+            return false;
+          }
+
+          // Check if mealPrice and mealCalories are numbers
+          if (isNaN(mealPrice) || isNaN(mealCalories)) {
+            alert("Price and calories must be numbers.");
+            return false;
+          }
+
+          // If all checks pass, return true
+          return true;
+        }
+
+        // Handle form submission
+        document.getElementById("cuisine-form").addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          // Validate form inputs
+          if (validateForm()) {
+            // Get form values
+            var mealName = document.getElementById("mealName").value;
+            var mealPrice = document.getElementById("mealPrice").value;
+            var mealCalories = document.getElementById("mealCalories").value;
+            var mealDescription = document.getElementById("mealDescription").value;
+            var mealPhoto = document.getElementById("mealPhoto").value; // For simplicity, just getting the file name
+
+            // Create meal object
+            var meal = {
+              name: mealName,
+              price: mealPrice,
+              calories: mealCalories,
+              description: mealDescription,
+              photo: mealPhoto,
+            };
+
+            // Save meal to local storage
+            var savedMeals = localStorage.getItem("restaurantMeals");
+            var meals = savedMeals ? JSON.parse(savedMeals) : [];
+            meals.push(meal);
+            localStorage.setItem("restaurantMeals", JSON.stringify(meals));
+
+            // Reset form
+            document.getElementById("cuisine-form").reset();
+
+            // Display success alert
+            alert("New meal '" + mealName + "' added successfully!");
+          }
+        });
+      };
+	  
+	  document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve dark mode state from localStorage and apply it
+  const isDarkModeStored = localStorage.getItem("darkModeEnabled");
+  if (isDarkModeStored === "true") {
+    document.body.classList.add("dark-mode");
+  }
+});
+    </script>
+
+    <meta charset="UTF-8" />
+    <title>New Cuisine page</title>
+    <link rel="stylesheet" href="Design-All-Owner-Pages.css" />
+    <link rel="stylesheet" href="../Shared.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="navigation">
+        <img src="../images/logo1.png" alt="logo" class="logo" />
+
+        <nav>
+          <ul>
+            <li><a href="../Home.html" accesskey="h">Home Page</a></li>
+            <li><a href="../Customer/RestaurantList.html" accesskey="c">Customer Dashbord</a></li>
+            <li><a href="Owner.html" accesskey="o">Owner Dashbord</a></li>
+          </ul>
+        </nav>
+      </div>
+      <h1>Owner Dashbord</h1>
+    </header>
+
+    <main>
+      <h2>New Cuisine Page</h2>
+      <div class="state">
+        <p><a href="../Home.html">Home Page</a> > <a href="owner.html">Owner Dashboard</a> > Cuisine Page</p>
+      </div>
+      <form id="cuisine-form" action="#" method="POST">
+        <div>
+          <label for="mealName">Name of Meal: </label>
+          <input type="text" id="mealName" name="mealName"  />
+        </div>
+
+        <div>
+          <label for="mealPrice">Price: </label>
+          <input type="text" id="mealPrice" name="mealPrice"  />
+        </div>
+
+        <div>
+          <label for="mealCalories">Calories: </label>
+          <input type="number" id="mealCalories" name="mealCalories"  />
+        </div>
+
+        <div>
+          <label for="mealDescription">Description: </label>
+          <textarea id="mealDescription" name="mealDescription" rows="4" ></textarea>
+        </div>
+
+        <div>
+          <label for="mealPhoto">Photo: </label>
+          <input type="file" id="mealPhoto" name="mealPhoto"  />
+        </div>
+
+        <input type="submit" value="Add" />
+      </form>
+    </main>
+
+    <footer>
+      <div class="social-icons">
+        <img src="../images/facebook.jpg" alt="FaceBoook" />
+        <img src="../images/x.jpg" alt="X" />
+        <img src="../images/instagram.jpg" alt="Insatgram" />
+      </div>
+      <p>&copy; Flavor Fleet</p>
+    </footer>
+  </body>
+</html>
