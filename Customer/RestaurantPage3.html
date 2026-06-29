@@ -47,12 +47,14 @@
         const mealName = mealContainer.querySelector("h3").textContent;
         const mealPrice = parseFloat(mealContainer.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim().replace("$", ""));
         const quantity = parseInt(mealContainer.querySelector(".quantity-input").value);
+const mealImage = mealContainer.querySelector("img").getAttribute("src");
 
-        const meal = {
-          name: mealName,
-          price: mealPrice,
-          quantity: quantity,
-        };
+const meal = {
+  name: mealName,
+  price: mealPrice,
+  quantity: quantity,
+  image: mealImage
+};
 
         const existingMeal = JSON.parse(localStorage.getItem("cart3")) || [];
         const index = existingMeal.findIndex((item) => item.name === mealName);
